@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net5.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="xunit" Version="2.4.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="IMarcacao.cs" />
+      <Compile Remove="PoCMotorRegraPontoTests\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="PoCMotorRegraPontoTests\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="PoCMotorRegraPontoTests\**" />
+    </ItemGroup>
+
+</Project>
