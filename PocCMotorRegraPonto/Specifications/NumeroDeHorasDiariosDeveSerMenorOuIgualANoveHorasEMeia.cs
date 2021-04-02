@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using PocCMotorRegraPonto.Registros;
+using PocCMotorRegraPonto.Validacao;
 
 namespace PocCMotorRegraPonto.Specifications
 {
@@ -10,8 +12,11 @@ namespace PocCMotorRegraPonto.Specifications
         protected override Func<Registro, Resultado> ExpressionDefinition() =>
             marcacoes =>
             {
-                var valor = marcacoes.Direita.Horario - marcacoes.Esquerda.Horario;
+                var valor =
+                    marcacoes.Batidas.Last().Horario - marcacoes.Batidas.First().Horario;
+
                 var ehSucesso = valor <= 9.5m;
+                
                 var resultado = new Resultado(
                     valor: valor.ToString(),
                     mensagem: ehSucesso ? string.Empty : ERRO,

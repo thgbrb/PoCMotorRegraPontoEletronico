@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
 using PocCMotorRegraPonto.Registros;
+using PocCMotorRegraPonto.Validacao;
 
 namespace PocCMotorRegraPonto
 {

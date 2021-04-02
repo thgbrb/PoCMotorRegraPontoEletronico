@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Linq;
 using System.Linq.Expressions;
 using PocCMotorRegraPonto.Registros;
+using PocCMotorRegraPonto.Validacao;
 
 namespace PocCMotorRegraPonto.Specifications
 {
@@ -16,8 +19,15 @@ namespace PocCMotorRegraPonto.Specifications
         protected override Func<Registro, Resultado> ExpressionDefinition() =>
             marcacoes =>
             {
+                // Registros validos
+                // E SE SE SE S
+                // 0 12 34 56 7
+
+                if (!marcacoes.Batidas[4].IsInicializada || !marcacoes.Batidas[3].IsInicializada)
+                    throw new ArgumentException("Uma ou mais batidas do intervalo não foram adicionadas. Adicionar no objeto de erro");
+                
                 // Aplica regra nos pares de marcação
-                var valor = marcacoes.Direita.Horario - marcacoes.Esquerda.Horario;
+                var valor = marcacoes.Batidas[4].Horario - marcacoes.Batidas[3].Horario;
 
                 // Define regra para indicar sucesso
                 var ehSucesso = valor >= 1;

@@ -1,4 +1,4 @@
-﻿namespace PocCMotorRegraPonto
+﻿namespace PocCMotorRegraPonto.Validacao
 {
     public class Resultado
     {

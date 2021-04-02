@@ -1,42 +1,41 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Microsoft.VisualBasic.CompilerServices;
 using PocCMotorRegraPonto.Registros;
 
 namespace PoCMotorRegraPontoTests
 {
-    public class MockRegistros : IEnumerable<object[]>
+    // Simula batidas recebidas em uma API ||
+    // Simula batidas recebidas de processos background
+    public class MockRegistros
     {
-        public IEnumerator<object[]> GetEnumerator()
-        {
-            yield return new object[] {new Registro(esquerda: new Batida(12, 01), direita: new Batida(12, 34))};
-            yield return new object[] {new Registro(esquerda: new Batida(13, 01), direita: new Batida(14, 12))};
-        }
+        const int QUANTIDADE_REGISTROS = 5000;
 
-        IEnumerator IEnumerable.GetEnumerator()
+        public static IEnumerable<object[]> MockRegistrosTurnoDiurno(int numRegistros)
         {
-            return GetEnumerator();
-        }
-    }
+            var registros = new List<object[]>();
+            var random = new Random();
 
-    // Lista de batidas recebidas na API
-    // Lista de batidas obtidas em processos background
-    public class MockBatidas : IEnumerable<object[]>
-    {
-        public IEnumerator<object[]> GetEnumerator()
-        {
-            yield return new object[] {new Batida(16, 20)};
-            yield return new object[] {new Batida(8, 10)};
-            yield return new object[] {new Batida(9, 30)};
-            yield return new object[] {new Batida(9, 15)};
-            yield return new object[] {new Batida(12, 30)};
-            yield return new object[] {new Batida(14, 00)};
-            yield return new object[] {new Batida(16, 00)};
-            yield return new object[] {new Batida(19, 00)};
-        }
+            for (int i = 0; i < QUANTIDADE_REGISTROS; i++)
+            {
+                var registro = Registro
+                    .Criar()
+                    .AdicionarBatida(new Batida((short) random.Next(6, 9), (short) random.Next(0, 59)))
+                    .AdicionarBatida(new Batida((short) random.Next(10, 10), (short) random.Next(0, 30)))
+                    .AdicionarBatida(new Batida((short) random.Next(10, 10), (short) random.Next(31, 59)))
+                    .AdicionarBatida(new Batida((short) random.Next(11, 13), (short) random.Next(0, 59)))
+                    .AdicionarBatida(new Batida((short) random.Next(13, 14), (short) random.Next(0, 59)))
+                    .AdicionarBatida(new Batida((short) random.Next(15, 15), (short) random.Next(0, 30)))
+                    .AdicionarBatida(new Batida((short) random.Next(15, 15), (short) random.Next(31, 59)))
+                    .AdicionarBatida(new Batida((short) random.Next(16, 19), (short) random.Next(0, 59)))
+                    .Build();
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
+                registros.Add(new object[] {registro});
+            }
+
+            return registros.Take(numRegistros);
         }
     }
 }
