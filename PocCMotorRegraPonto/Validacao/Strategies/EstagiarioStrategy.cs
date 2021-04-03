@@ -2,7 +2,7 @@
 
 namespace PocCMotorRegraPonto.Validacao.Strategies
 {
-    public class EstagiarioStrategy : IValidador
+    public class EstagiarioStrategy : IValidadorStrategy
     {
         public Resultado Executar(Registro registro)
         {

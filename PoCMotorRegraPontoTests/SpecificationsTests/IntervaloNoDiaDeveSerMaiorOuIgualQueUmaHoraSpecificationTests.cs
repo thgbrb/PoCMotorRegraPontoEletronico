@@ -23,23 +23,18 @@ namespace PoCMotorRegraPontoTests.SpecificationsTests
         public void DeveValidarSpecificationIntervaloNoDiaDeveSerMaiorOuIgualQueUmaHoraSpecification(Registro registro)
         {
             // Arrange 
+            var strategy = new IntervaloNoDiaDeveSerMaiorOuIgualQueUmaHoraSpecification();
 
-            var validador = new Validador()
-                .AdicionarSpecification(new IntervaloNoDiaDeveSerMaiorOuIgualQueUmaHoraSpecification());
-
-            // Processa resultado (materializa) ou yield return
-            var resultado = validador.Validar(registro);
-
-            // PoC: Processando resultado
-            var r = resultado.First();
+            // Act
+            var resultado = strategy.IsSatisfyBy(registro);
 
             // Assert
-            if (r.EhSucesso)
-                Assert.True(Convert.ToDecimal(r.Valor) >= 1m);
+            if (resultado.EhSucesso)
+                Assert.True(Convert.ToDecimal(resultado.Valor) >= 1m);
             else
-                Assert.True(Convert.ToDecimal(r.Valor) < 1m);
+                Assert.True(Convert.ToDecimal(resultado.Valor) < 1m);
 
-            _output.WriteLine($"{r.EhSucesso} - {r.Valor} - {r.Mensagem}");
+            _output.WriteLine($"{resultado.EhSucesso} - {resultado.Valor} - {resultado.Mensagem}");
         }
     }
 }

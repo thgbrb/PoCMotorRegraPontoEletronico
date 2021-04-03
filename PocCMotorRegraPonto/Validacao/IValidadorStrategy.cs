@@ -2,7 +2,7 @@
 
 namespace PocCMotorRegraPonto.Validacao
 {
-    public interface IValidador
+    public interface IValidadorStrategy
     {
         Resultado Executar(Registro registro);
     }

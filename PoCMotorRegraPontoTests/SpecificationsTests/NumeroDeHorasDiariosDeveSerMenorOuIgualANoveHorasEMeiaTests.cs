@@ -16,22 +16,17 @@ namespace PoCMotorRegraPontoTests.SpecificationsTests
         {
             _output = output;
         }
-        
+
         [Theory]
         [MemberData(nameof(MockRegistros.MockRegistrosTurnoDiurno), parameters: 500,
             MemberType = typeof(MockRegistros))]
         public void DeveValidarSpecificationNumeroDeHorasDiariosDeveSerMenorOuIgualANoveHorasEMeia(Registro registro)
         {
             // Arrange 
+            var strategy = new NumeroDeHorasDiariosDeveSerMenorOuIgualANoveHorasEMeia();
 
-            var validador = new Validador()
-                .AdicionarSpecification(new NumeroDeHorasDiariosDeveSerMenorOuIgualANoveHorasEMeia());
-
-            // Processa resultado (materializa) ou yield return
-            var resultadoValidacao = validador.Validar(registro);
-
-            // PoC: Processando resultado
-            var resultado = resultadoValidacao.First();
+            // Act
+            var resultado = strategy.IsSatisfyBy(registro);
 
             // Assert
             if (resultado.EhSucesso)

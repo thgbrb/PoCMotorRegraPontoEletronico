@@ -1,8 +1,9 @@
-﻿using PocCMotorRegraPonto.Registros;
+﻿using System.Collections.Generic;
+using PocCMotorRegraPonto.Registros;
 
 namespace PocCMotorRegraPonto.Validacao.Strategies
 {
-    public class MenorAprendizStrategy : IValidador
+    public class MenorAprendizStrategy : IValidadorStrategy
     {
         public Resultado Executar(Registro registro)
         {
@@ -10,6 +11,14 @@ namespace PocCMotorRegraPonto.Validacao.Strategies
             // Valida as batidas do registro
             
             throw new System.NotImplementedException();
+            
+            // public IEnumerable<Resultado> Validar(Registro registro)
+            // {
+            //     foreach (var specification in _specifications)
+            //     {
+            //         yield return specification.IsSatisfyBy(registro);
+            //     }
+            // }
         }
     }
 }

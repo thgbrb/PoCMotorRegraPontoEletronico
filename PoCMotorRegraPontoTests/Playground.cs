@@ -21,15 +21,13 @@ namespace PoCMotorRegraPontoTests
 
             // Cria validador e Executa validação
 
-            var resultado = new Validador()
-                .AdicionarRegistro(registro)
+            var resultado = Validador
+                .Inicializar(registro)
                 .AdicionarValidador(Validadores.Estagiario)
                 .AdicionarValidador(Validadores.CLT)
                 .AdicionarValidador(Validadores.MenorAprendiz)
-                // .AdicionarValidador(Validadores.Jornada40HorasSemanais)
-                // .AdicionarValidador(Validadores.Jornada20HorasSemanais)
-                .OrganizarTurnos()
-                .Executar(registro);
+                .AdicionarValidador(Validadores.Jornada40HorasSemanais)
+                .Executar();
 
             // Trata o resultado
         }

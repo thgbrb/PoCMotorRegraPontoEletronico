@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Linq.Expressions;
 using PocCMotorRegraPonto.Registros;
 using PocCMotorRegraPonto.Validacao;
 
-namespace PocCMotorRegraPonto
+namespace PocCMotorRegraPonto.Specifications
 {
     public abstract class Specification<T>
     {
