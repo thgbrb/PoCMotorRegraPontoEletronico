@@ -4,7 +4,7 @@ namespace PocCMotorRegraPonto.Validacao.Strategies
 {
     public class CltStrategy : IValidadorStrategy
     {
-        public Resultado Executar(Registro registro)
+        public Resultado Executar(Registro current, Registro next)
         {
             // Define uma coleção de specifications que satisfaçam a estratégia
             // Valida as batidas do registro

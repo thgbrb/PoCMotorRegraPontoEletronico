@@ -10,13 +10,17 @@ namespace PocCMotorRegraPonto.Validacao
     public class Validador
     {
         private readonly IList<IValidadorStrategy> _strategies = new List<IValidadorStrategy>();
-        private Registro _registro;
+        private readonly Registro _registroCurrent;
+        private readonly Registro _registroNext;
 
-        private Validador(Registro registro)
-            => _registro = registro;
+        private Validador(Registro registroCurrent, Registro registroNext = default)
+        {
+            _registroCurrent = registroCurrent;
+            _registroNext = registroNext;
+        }
 
-        public static Validador Inicializar(Registro registro)
-            => new Validador(registro);
+        public static Validador Inicializar(Registro registroCurrent, Registro registroNext = default)
+            => new Validador(registroCurrent, registroNext);
 
         public Validador AdicionarValidador(Validadores validador)
         {
@@ -33,7 +37,7 @@ namespace PocCMotorRegraPonto.Validacao
             foreach (var strategy in _strategies)
             {
                 var resultado = strategy
-                    .Executar(_registro);
+                    .Executar(_registroCurrent, _registroNext);
 
                 yield return resultado;
             }

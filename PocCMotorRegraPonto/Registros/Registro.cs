@@ -9,8 +9,8 @@ namespace PocCMotorRegraPonto.Registros
 {
     public class Registro
     {
-        const byte TAMANHO_MAXIMO_BATIDAS = 8;
-        private IList<Batida> _batidas = new List<Batida>(TAMANHO_MAXIMO_BATIDAS);
+        const byte NUMERO_MAXIMO_BATIDAS_NO_DIA = 8;
+        private IList<Batida> _batidas = new List<Batida>(NUMERO_MAXIMO_BATIDAS_NO_DIA);
         private bool isBuilt;
         private IImmutableList<Batida> batidasInternal;
 
@@ -54,19 +54,21 @@ namespace PocCMotorRegraPonto.Registros
 
         public Registro Build()
         {
-            var registro = new BitArray(TAMANHO_MAXIMO_BATIDAS);
+            var registro = new BitArray(NUMERO_MAXIMO_BATIDAS_NO_DIA);
 
             for (short i = 0; i < _batidas.Count; i++)
                 registro[i] = _batidas[i].IsInicializada;
 
-            var registroByte = new byte[TAMANHO_MAXIMO_BATIDAS];
+            var registroByte = new byte[NUMERO_MAXIMO_BATIDAS_NO_DIA];
             registro.CopyTo(registroByte, 0);
 
             var registroInt16 = BitConverter
                 .ToUInt16(registroByte, 0);
 
-            EhValido = BitOperations
-                .PopCount(registroInt16) % 2 == 0;
+            var quantidade = BitOperations
+                .PopCount(registroInt16);
+
+            EhValido = (quantidade ^ 1) == quantidade + 1;
 
             if (EhValido)
                 batidasInternal = _batidas

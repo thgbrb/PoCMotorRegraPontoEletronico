@@ -1,10 +1,13 @@
+using System.Linq;
 using PocCMotorRegraPonto.Registros;
 using PocCMotorRegraPonto.Validacao;
+using Xunit;
 
 namespace PoCMotorRegraPontoTests
 {
     public class Playground
     {
+        [Fact]
         public void DeveReceberUmRegistroEValidarResultadoDeValidacao()
         {
             // Obtem um registro, que é composto por uma lista de batidas.
@@ -20,7 +23,6 @@ namespace PoCMotorRegraPontoTests
                 .AdicionarBatida(new Batida(19, 00));
 
             // Cria validador e Executa validação
-
             var resultado = Validador
                 .Inicializar(registro)
                 .AdicionarValidador(Validadores.Estagiario)
@@ -30,6 +32,7 @@ namespace PoCMotorRegraPontoTests
                 .Executar();
 
             // Trata o resultado
+            var r = resultado.ToList();
         }
     }
 }
