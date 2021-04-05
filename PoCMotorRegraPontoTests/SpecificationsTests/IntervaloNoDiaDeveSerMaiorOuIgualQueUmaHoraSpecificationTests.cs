@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Linq;
 using PocCMotorRegraPonto.Registros;
 using PocCMotorRegraPonto.Specifications;
-using PocCMotorRegraPonto.Validacao;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -26,15 +24,15 @@ namespace PoCMotorRegraPontoTests.SpecificationsTests
             var strategy = new IntervaloNoDiaDeveSerMaiorOuIgualQueUmaHoraSpecification();
 
             // Act
-            var resultado = strategy.IsSatisfyBy(registro);
+            var resultado = strategy.IsSatisfyBy(registro, default);
 
             // Assert
             if (resultado.EhSucesso)
-                Assert.True(Convert.ToDecimal(resultado.Valor) >= 1m);
+                Assert.True(Convert.ToDecimal(resultado.ValorCalculado) >= 1m);
             else
-                Assert.True(Convert.ToDecimal(resultado.Valor) < 1m);
+                Assert.True(Convert.ToDecimal(resultado.ValorCalculado) < 1m);
 
-            _output.WriteLine($"{resultado.EhSucesso} - {resultado.Valor} - {resultado.Mensagem}");
+            _output.WriteLine($"{resultado.EhSucesso} - {resultado.ValorCalculado} - {resultado.Mensagem}");
         }
     }
 }

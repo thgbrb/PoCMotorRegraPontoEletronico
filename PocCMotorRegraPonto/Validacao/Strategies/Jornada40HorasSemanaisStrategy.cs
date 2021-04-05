@@ -1,12 +1,19 @@
 ﻿using PocCMotorRegraPonto.Registros;
+using PocCMotorRegraPonto.Specifications;
 
 namespace PocCMotorRegraPonto.Validacao.Strategies
 {
+    /// <inheritdocs/>
     public class Jornada40HorasSemanaisStrategy : IValidadorStrategy
     {
+        /// <inheritdocs/>
         public Resultado Executar(Registro current, Registro next)
         {
-            throw new System.NotImplementedException();
+            var strategy = new IntervaloNoDiaDeveSerMaiorOuIgualQueUmaHoraSpecification();
+
+            var resultado = strategy.IsSatisfyBy(current, default);
+
+            return resultado;
         }
     }
 }

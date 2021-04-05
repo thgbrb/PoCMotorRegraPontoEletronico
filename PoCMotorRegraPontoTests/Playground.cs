@@ -10,7 +10,7 @@ namespace PoCMotorRegraPontoTests
         [Fact]
         public void DeveReceberUmRegistroEValidarResultadoDeValidacao()
         {
-            // Obtem um registro, que é composto por uma lista de batidas.
+            // Arrange
             var registro = Registro
                 .Criar()
                 .AdicionarBatida(new Batida(16, 20))
@@ -20,19 +20,22 @@ namespace PoCMotorRegraPontoTests
                 .AdicionarBatida(new Batida(12, 30))
                 .AdicionarBatida(new Batida(14, 00))
                 .AdicionarBatida(new Batida(16, 00))
-                .AdicionarBatida(new Batida(19, 00));
+                .AdicionarBatida(new Batida(19, 00))
+                .Build();
 
-            // Cria validador e Executa validação
-            var resultado = Validador
+            // Act
+            var resultados = Validador
                 .Inicializar(registro)
-                .AdicionarValidador(Validadores.Estagiario)
-                .AdicionarValidador(Validadores.CLT)
-                .AdicionarValidador(Validadores.MenorAprendiz)
+                // .AdicionarValidador(Validadores.Estagiario)
+                // .AdicionarValidador(Validadores.CLT)
+                // .AdicionarValidador(Validadores.MenorAprendiz)
                 .AdicionarValidador(Validadores.Jornada40HorasSemanais)
                 .Executar();
 
-            // Trata o resultado
-            var r = resultado.ToList();
+            var resultado = resultados.ToList();
+
+            // Assert
+            Assert.True(resultado.Any());
         }
     }
 }

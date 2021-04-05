@@ -3,7 +3,7 @@
 namespace PocCMotorRegraPonto.Validacao.Strategies
 {
     /// <inheritdocs/>
-    public class CltStrategy : IValidadorStrategy
+    public class JornadaNoturnaStrategy : IValidadorStrategy
     {
         /// <inheritdocs/>
         public Resultado Executar(Registro current, Registro next)
